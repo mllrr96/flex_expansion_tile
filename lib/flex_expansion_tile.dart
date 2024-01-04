@@ -222,7 +222,6 @@ class FlexExpansionTile extends StatefulWidget {
     this.leading,
     this.title,
     this.subtitle,
-    this.info,
     this.trailing,
     this.margin = EdgeInsets.zero,
     this.headerPadding,
@@ -258,19 +257,13 @@ class FlexExpansionTile extends StatefulWidget {
   /// [Text.maxLines].
   final Widget? title;
 
-  /// Additional content displayed below the title.
+  /// Optional expanding info widget that can be used to describe content in
+  /// this header card.
   ///
-  /// Normal you would not use the property in the FlexExpansionTile, but it
-  /// is possible if required.
+  /// If null there is no info icon and expand feature.
   ///
   /// Typically a [Text] widget.
   final Widget? subtitle;
-
-  /// Optional expanding info text that can be used to describe content in
-  /// this header card.
-  ///
-  /// If null or empty string, there is no info icon and expand feature.
-  final String? info;
 
   /// A widget to display after the title.
   ///
@@ -547,9 +540,7 @@ class _FlexExpansionTileState extends State<FlexExpansionTile>
                   subtitleDense: widget.subtitleDense,
                   leading: widget.leading ?? _buildLeadingIcon(context),
                   title: widget.title,
-                  subtitle: widget.info != null && widget.info != ''
-                      ? Text(widget.info!)
-                      : null,
+                  subtitle: widget.subtitle,
                   trailing: widget.trailing ?? _buildTrailingIcon(context),
                   onTap: _toggleExpansion,
                   onLongTap: widget.onLongTap,
@@ -687,7 +678,6 @@ class _ListTileRevealState extends State<_ListTileReveal> {
               if (widget.subtitle != null && widget.enabled)
                 IconButton(
                   iconSize: 20,
-                  // ignore: avoid_bool_literals_in_conditional_expressions
                   isSelected: widget.enabled ? _isOpen : false,
                   icon: const Icon(Icons.info_outlined),
                   selectedIcon: const Icon(Icons.info),
